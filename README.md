@@ -8,6 +8,11 @@
 
 ---
 
+### Run Flask project
+`flask run --debug`
+
+---
+
 ### Must read
 - https://flask.palletsprojects.com/en/2.2.x/
 - https://flask.palletsprojects.com/en/2.2.x/blueprints/
