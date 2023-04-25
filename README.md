@@ -12,3 +12,8 @@
 - https://flask.palletsprojects.com/en/2.2.x/
 - https://flask.palletsprojects.com/en/2.2.x/blueprints/
 - https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/
+
+---
+### Generating a new SSH key and adding it to the ssh-agent
+- https://docs.google.com/document/d/1_nIKZ48akB_VQn2-1BuDNJgXkjvXwTwZ0ju3vvOoVWU/edit?usp=sharing
+- https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
