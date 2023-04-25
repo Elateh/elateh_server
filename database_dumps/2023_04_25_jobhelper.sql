@@ -1,0 +1,1 @@
+INSERT INTO `elateh_db`.`healthcheck` (`version`, `name`) VALUES ('1', 'Elateh REST API');
