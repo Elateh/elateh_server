@@ -49,7 +49,7 @@ def login_page():
 def log_user_in():
     if request.method == 'POST':
         try:
-            if User.objects.get(username=request.form['username']).exist and \
+            if User.objects.get(email=request.form['email']).exist and \
                     User.objects.get(password=request.form['password']).exist:
                 return True
             else:
