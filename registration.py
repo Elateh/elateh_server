@@ -24,7 +24,7 @@ def main():
 
 @app.route('/registration-form', methods=['POST', 'GET'])
 def registrate_page():
-    return render_template("registration-form.html")
+    return render_template("singInScreen.js")
 
 def add_registrated_user_data():
     if request.method == 'POST':
