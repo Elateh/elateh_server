@@ -39,7 +39,7 @@ def add_registrated_user_data():
         except:
             return "Помилка при реєстрації."
     else:
-        return render_template("registration-form.html")
+        return render_template("singInScreen.js")
 
 
 @app.route('/login-form', methods=['POST', 'GET'])
