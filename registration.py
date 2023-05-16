@@ -44,7 +44,7 @@ def add_registrated_user_data():
 
 @app.route('/login-form', methods=['POST', 'GET'])
 def login_page():
-    return render_template("login-form.html")
+    return render_template("logInScreen.js")
 
 def log_user_in():
     if request.method == 'POST':
@@ -57,7 +57,7 @@ def log_user_in():
         except:
             return IOError
     else:
-        return render_template("login-form.html")
+        return render_template("logInScreen.js")
 
 
 
