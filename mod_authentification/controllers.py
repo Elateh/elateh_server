@@ -6,7 +6,7 @@ mod_authentification = Blueprint('authentification', __name__, url_prefix='/auth
 
 @mod_authentification.route('/authentification', methods=['POST'])
 @mod_authentification.route('/', methods=['POST'])
-def addUser():
+def add_user():
     data = [{
         'email': request.email,
         'username': request.username,
