@@ -7,11 +7,10 @@ mod_authentification = Blueprint('authentification', __name__, url_prefix='/auth
 @mod_authentification.route('/authentification', methods=['POST'])
 @mod_authentification.route('/', methods=['POST'])
 def add_user():
-    data = [{
-        'email': request.email,
-        'username': request.username,
-        'password': request.password
-    } for authentification in Users.query.all()]
-    authentification_data = data[0]
+    email = request.form.get('email')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    model = Users({email, username, password})
+    model.save()
 
-    return  jsonify(authentification_data)
+    return  jsonify(model)
