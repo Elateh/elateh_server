@@ -13,4 +13,8 @@ def add_user():
     model = Users({email, username, password})
     model.save()
 
-    return  jsonify(model)
+    return jsonify({
+        'username': username,
+        'email ': email,
+        'message': 'You have been registered successfully'
+    })
