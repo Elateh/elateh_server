@@ -10,7 +10,7 @@ def add_user():
     email = request.form.get('email')
     username = request.form.get('username')
     password = request.form.get('password')
-    model = Users({email, username, password})
+    model = new Users({email, username, password})
     model.save()
 
     return jsonify({
