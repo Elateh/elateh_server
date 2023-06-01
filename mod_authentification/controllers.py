@@ -28,7 +28,6 @@ def add_user():
     })
 
 @mod_authentification.route('/login', methods=['POST'])
-@mod_authentification.route('/', methods=['POST'])
 def log_in():
     data = json.loads(request.data)
     email = data.get('email')
