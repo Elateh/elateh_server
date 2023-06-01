@@ -18,3 +18,17 @@ def add_user():
         'email ': email,
         'message': 'You have been registered successfully'
     })
+def log_in():
+    data = json.loads(request.data)
+    email = data.get('email')
+    username = data.get('username')
+    password = data.get('password')
+    model = Users(email=email, username=username, password=password)
+    if db.session.query(exists().where(Users == model)):
+        return jsonify({
+            'username': username,
+            'password': password,
+            'success': True,
+            'message': 'You have been logged in successfully'
+        })
+    
