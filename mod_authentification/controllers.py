@@ -27,6 +27,8 @@ def add_user():
         'message': 'You have been registered successfully'
     })
 
+@mod_authentification.route('/login', methods=['POST'])
+@mod_authentification.route('/', methods=['POST'])
 def log_in():
     data = json.loads(request.data)
     email = data.get('email')
