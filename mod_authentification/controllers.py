@@ -31,13 +31,19 @@ def add_user():
 def log_in():
     data = json.loads(request.data)
     email = data.get('email')
-    username = data.get('username')
     password = data.get('password')
-    model = Users(email=email, username=username, password=password)
-    if db.session.query(exists().where(Users == model)):
+    model = Users(email=email, password=password)
+    user = db.session.query(Users).filter_by(email=email, password=password).first()
+    if user:
         return jsonify({
-            'username': username,
+            'email': email,
+            'username': user.username,
             'password': password,
             'success': True,
             'message': 'You have been logged in successfully'
+        })
+    else:
+        return jsonify({
+            'success': False,
+            'message': 'Wrong email or password'
         })
