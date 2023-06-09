@@ -14,13 +14,10 @@ def after_request(response):
     return response
 
 def index():
-    dish_types1={'Лаваші': dish_list1, 'Хот-доги': dish_list2, 'Напої': dish_list3}
-    dish_list1=[Dishes(name='Шаурма ВЕГАН - фалафель з овочами гриль (370 г)', price=80, image='шаурма1.jpeg'),
-                Dishes(name='Шаурма курка з шинкою в кисло-солодкому соусі (420 г)', price=100, image='шаурма2.jpeg')]
-    dish_list2=[Dishes()]
-    dish_list3=[Dishes()]
-    group = Group(name='Group 1', dishes=dish_types1)
-    db.session.add(group)
-    db.session.commit()
-    group = Group.query.first()
-    dises = group.dishes
+    with app.app_context():
+        dish111=Dishes(name='Шаурма ВЕГАН - фалафель з овочами гриль (370 г)', price=80, image='шаурма1.jpeg')
+        dish112=Dishes(name='Шаурма курка з шинкою в кисло-солодкому соусі (420 г)', price=100, image='шаурма2.jpeg')
+        dish113=Dishes(name='Шаурма свинина з беконом під соусом BBQ (430 г', price=100)
+        db.session.add(dish111)
+        db.session.add(dish112)
+        db.session.commit()
