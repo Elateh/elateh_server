@@ -32,5 +32,7 @@ def index():
         dish_list3 = [Dishes()]
         group = Group(name='Group 1', dishes=dish_types)
         cafe1 = Cafes(image='фішка.jpeg',name='Фішка',dishes=dish_types1)
+        group = Group.query.first()
+        dises = group.dishes
         db.session.add(cafe1)
         db.session.commit()
