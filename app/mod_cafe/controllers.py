@@ -19,4 +19,9 @@ def return_cafe():
     return jsonify({
         'picture': picture,
         'name': name
+        'dishes': [dish for dishes in types for types in dish_types]
+    })
+
+def index():
+    cafe1 = Cafes(image='фішка.jpeg',name='Фішка',dishes=dish_types1)
     })
