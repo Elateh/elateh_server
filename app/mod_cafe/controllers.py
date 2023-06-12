@@ -2,6 +2,7 @@ import json
 from flask import Blueprint, jsonify, request
 
 from app import db
+from app.utils import object_as_dict
 from app.mod_cafe.models import Cafe
 from app.mod_dish.models import Dish
 
@@ -36,6 +37,19 @@ def create_cafe():
         'picture': picture,
         'name': name
     })
+
+@mod_cafe.route('/cafe/<int:cafe_id>', methods=['GET'])
+def get_cafe(cafe_id):
+    query = Cafe.query.filter_by(id=cafe_id).first()
+
+    print(query)
+
+    # data = [{
+    #     'id': cafe.id,
+    #     'name': cafe.name,
+    #     'picture': cafe.picture,
+    # } for cafe in query]
+    return object_as_dict(query)
 
 @mod_cafe.route('/cafe/<int:cafe_id>/dishes', methods=['GET'])
 def get_cafe_dishes(cafe_id):
