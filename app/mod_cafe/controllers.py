@@ -3,16 +3,17 @@ from flask import Blueprint, jsonify, request
 
 from app import db
 from app.mod_cafe.models import Cafe
+from app.mod_dish.models import Dish
 
 mod_cafe = Blueprint('cafe', __name__, url_prefix='/cafe')
 
 @mod_cafe.route('/cafe', methods=['GET'])
 def get_cafes():
     data = [{
-        'id': collaborator.id,
-        'name': collaborator.name,
-        'picture': collaborator.picture,
-    } for collaborator in Cafe.query.all()]
+        'id': cafe.id,
+        'name': cafe.name,
+        'picture': cafe.picture,
+    } for cafe in Cafe.query.all()]
     return jsonify(data)
 
 @mod_cafe.route('/cafe', methods=['POST'])
@@ -35,3 +36,15 @@ def create_cafe():
         'picture': picture,
         'name': name
     })
+
+@mod_cafe.route('/cafe/<int:cafe_id>/dishes', methods=['GET'])
+def get_cafe_dishes(cafe_id):
+    query = Dish.query.filter_by(cafe_id=cafe_id).all()
+
+    data = [{
+        'id': dish.id,
+        'name': dish.name,
+        'price': dish.price,
+        'picture': dish.picture,
+    } for dish in query]
+    return jsonify(data)
