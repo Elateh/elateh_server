@@ -3,15 +3,13 @@ import json
 from flask import Blueprint, jsonify, request
 
 from app import db
-from app.mod_authentification.models import Users
+from app.mod_auth.models import Users
 
 mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 @mod_auth.route('/auth/sign-up', methods=['POST'])
-@mod_auth.route('/', methods=['POST'])
 def add_user():
     data = json.loads(request.data)
-    print(data)
     email = data.get('email')
     password = data.get('password')
 
