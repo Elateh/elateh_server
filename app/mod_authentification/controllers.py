@@ -2,23 +2,23 @@ import json
 
 from flask import Blueprint, jsonify, request
 
+from app import db
 from app.mod_authentification.models import Users
 
-mod_healthcheck = Blueprint('authentification', __name__, url_prefix='/authentification')
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    response.headers.add('Access-Control-Allow-Method', 'GET, POST, OPTIONS')
-    return response
+mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
-@mod_authentification.route('/authentification', methods=['POST'])
-@mod_authentification.route('/', methods=['POST'])
+@mod_auth.route('/auth/sign-up', methods=['POST'])
+@mod_auth.route('/', methods=['POST'])
 def add_user():
     data = json.loads(request.data)
+    print(data)
     email = data.get('email')
-    username = data.get('username')
     password = data.get('password')
-    model = Users(email=email, username=username, password=password)
+
+    model = Users()
+    model.email=email
+    model.password=password
+
     db.session.add(model)
     db.session.commit()
 
@@ -27,18 +27,15 @@ def add_user():
         'message': 'You have been registered successfully'
     })
 
-@mod_authentification.route('/login', methods=['POST'])
+@mod_auth.route('/auth/login', methods=['POST'])
 def log_in():
     data = json.loads(request.data)
     email = data.get('email')
     password = data.get('password')
-    model = Users(email=email, password=password)
     user = db.session.query(Users).filter_by(email=email, password=password).first()
     if user:
         return jsonify({
             'email': email,
-            'username': user.username,
-            'password': password,
             'success': True,
             'message': 'You have been logged in successfully'
         })

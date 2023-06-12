@@ -10,11 +10,11 @@ db: SQLAlchemy = SQLAlchemy(app)
 
 # Import a modules using its blueprint handler variable
 from app.mod_healthcheck.controllers import mod_healthcheck
-from app.mod_authentification.controllers import mod_authentification
+from app.mod_authentification.controllers import mod_auth
 
 # Register blueprint(s)
 app.register_blueprint(mod_healthcheck, url_prefix='/api')
-app.register_blueprint(mod_authentification, url_prefix='/api')
+app.register_blueprint(mod_auth, url_prefix='/api')
 
 try:
     db.create_all()
