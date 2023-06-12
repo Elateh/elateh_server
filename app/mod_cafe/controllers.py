@@ -41,14 +41,6 @@ def create_cafe():
 @mod_cafe.route('/cafe/<int:cafe_id>', methods=['GET'])
 def get_cafe(cafe_id):
     query = Cafe.query.filter_by(id=cafe_id).first()
-
-    print(query)
-
-    # data = [{
-    #     'id': cafe.id,
-    #     'name': cafe.name,
-    #     'picture': cafe.picture,
-    # } for cafe in query]
     return object_as_dict(query)
 
 @mod_cafe.route('/cafe/<int:cafe_id>/dishes', methods=['GET'])
