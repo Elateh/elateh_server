@@ -14,6 +14,7 @@ from app.mod_auth.controllers import mod_auth
 from app.mod_cafe.controllers import mod_cafe
 from app.mod_dish.controllers import mod_dish
 from app.mod_order.controllers import mod_order
+from app.mod_type.controllers import mod_type
 
 # Register blueprint(s)
 app.register_blueprint(mod_healthcheck, url_prefix='/api')
@@ -21,6 +22,7 @@ app.register_blueprint(mod_auth, url_prefix='/api')
 app.register_blueprint(mod_cafe, url_prefix='/api')
 app.register_blueprint(mod_dish, url_prefix='/api')
 app.register_blueprint(mod_order, url_prefix='/api')
+app.register_blueprint(mod_type, url_prefix='/api')
 
 try:
     db.create_all()
