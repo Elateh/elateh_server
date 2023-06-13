@@ -34,6 +34,7 @@ def log_in():
     if user:
         return jsonify({
             'email': email,
+            'username': user.username,
             'success': True,
             'message': 'You have been logged in successfully'
         })
