@@ -8,3 +8,4 @@ class Dish(db.Model):
     price = db.Column(db.Integer, nullable=False)
     picture = db.Column(db.Text, unique=False, nullable=False)
     cafe_id = db.Column(db.Integer, ForeignKey('cafes.id'))
+    type_id = db.Column(db.Integer, ForeignKey('types.id'))

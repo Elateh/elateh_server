@@ -11,6 +11,7 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 def add_user():
     data = json.loads(request.data)
     email = data.get('email')
+    username = data.get('username')
     password = data.get('password')
 
     model = Users()
@@ -34,6 +35,7 @@ def log_in():
     if user:
         return jsonify({
             'email': email,
+            'username': user.username,
             'success': True,
             'message': 'You have been logged in successfully'
         })
