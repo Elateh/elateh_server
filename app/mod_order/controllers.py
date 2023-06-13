@@ -1,6 +1,7 @@
 import json
 
 from flask import Blueprint, jsonify, request
+from datetime import datetime
 
 from app.mod_order.models import Order
 from app import db
@@ -12,10 +13,13 @@ def make_order():
 
     cafe_id = data.get('cafe_id')
     dish_id = data.get('dish_id')
+    user_id = data.get('user_id')
 
     model = Order()
     model.cafe_id = cafe_id
     model.dish_id = dish_id
+    model.user_id = user_id
+    model.date = datetime.now()
 
     db.session.add(model)
     db.session.commit()
@@ -24,5 +28,7 @@ def make_order():
     return jsonify({
         'id': id,
         'cafe_id': cafe_id,
-        'dish_id': dish_id
+        'dish_id': dish_id,
+        'user_id': user_id,
+        'date': date
     })
