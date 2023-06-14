@@ -37,3 +37,20 @@ def create_dish():
         'type_id': type_id,
         'is_chosen': is_chosen
     })
+
+@mod_dish.route('dish/choose_dish', method=['POST'])
+def choose_dish():
+    all_dishes = json.loads(request.data)
+    my_dishes = all_dishes['objects']
+    chosen_dishes = Dish.query.filter(Dish.id.in_([dish['id'] for dish in my_dishes])).all()
+    matching_dishes = [dish for dish in my_dishes if dish['id'] in [db_dish.id for db_dish in chosen_dishes]]
+    data = [{
+        'id': dish.id,
+        'name': dish.name,
+        'price': dish.price,
+        'picture': dish.picture,
+        'cafe_id': cafe_id,
+        'type_id': type_id,
+        'is_chosen': True
+    } for dish in matching_dishes]
+    return jsonify(data)
