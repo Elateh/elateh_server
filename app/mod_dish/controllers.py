@@ -42,8 +42,11 @@ def create_dish():
 def choose_dish():
     all_dishes = json.loads(request.data)
     my_dishes = all_dishes['objects']
-    chosen_dishes = Dish.query.filter(Dish.id.in_([dish['id'] for dish in my_dishes])).all()
-    matching_dishes = [dish for dish in my_dishes if dish['id'] in [db_dish.id for db_dish in chosen_dishes]]
+    chosen_dishes = []
+    for dish in my_dishes:
+        query = Dish.query.filter(Dish.name == dish['name'], Dish.id == dish['id'], Dish.type_id == dish['type_id']).first()
+        if query:
+            chosen_dishes.append(dish)
     data = [{
         'id': dish.id,
         'name': dish.name,
