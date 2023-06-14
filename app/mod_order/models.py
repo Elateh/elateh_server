@@ -8,4 +8,4 @@ class Order(db.Model):
     dish_id = db.Column(db.JSON)
     type_id = db.Column(db.JSON)
     user_id = db.Column(db.Integer, ForeignKey('users.id'))
-    date = db.Column(db.Datetime)
+    date = db.Column(db.DateTime)
