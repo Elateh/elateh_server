@@ -38,7 +38,7 @@ def make_order():
         'quantity': quantity
     })
 
-@mod_order.route('/order/<int:order_id>/<int:type_id>/<int:cafe_id>/<int:dish_id>', method=['POST'])
+@mod_order.route('/order/remove_order', method=['POST'])
 def remove_order(order_id, type1_id, cafe1_id, dish1_id):
     query = Order.query.filter_by(id=order_id, type_id=type1_id, cafe_id=cafe1_id, dish_id=dish1_id).first()
     db.session.delete(query)
