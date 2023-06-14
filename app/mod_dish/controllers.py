@@ -22,6 +22,7 @@ def create_dish():
     model.picture = picture
     model.cafe_id = cafe_id
     model.type_id = type_id
+    model.is_chosen = False
 
     db.session.add(model)
     db.session.commit()
@@ -33,5 +34,6 @@ def create_dish():
         'name': name,
         'price': price,
         'cafe_id': cafe_id,
-        'type_id': type_id
+        'type_id': type_id,
+        'is_chosen': is_chosen
     })
