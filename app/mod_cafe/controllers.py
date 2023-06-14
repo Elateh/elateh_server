@@ -65,3 +65,15 @@ def get_cafe_types(cafe_id):
         'name': type_.name
     } for type_ in query]
     return jsonify(data)
+
+@mod_cafe.route('/cafe/<int:cafe_id>/<int:type_id>dishes', methods=['GET'])
+def get_cafe_dishes(cafe_id, type_id):
+    query = Dish.query.filter_by(cafe_id=cafe_id, type_id=type_id).all()
+
+    data = [{
+        'id': dish.id,
+        'name': dish.name,
+        'price': dish.price,
+        'picture': dish.picture,
+    } for dish in query]
+    return jsonify(data)
