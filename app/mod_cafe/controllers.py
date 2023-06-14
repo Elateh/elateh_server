@@ -53,6 +53,9 @@ def get_cafe_dishes(cafe_id):
         'name': dish.name,
         'price': dish.price,
         'picture': dish.picture,
+        'type_id': dish.type_id,
+        'cafe_id': dish.cafe_id,
+        'type_of_institution': "cafe"
     } for dish in query]
     return jsonify(data)
 
