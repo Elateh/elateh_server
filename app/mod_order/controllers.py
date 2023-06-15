@@ -7,6 +7,8 @@ from app.mod_order.models import Order
 from app import db
 
 mod_order = Blueprint('order', __name__, url_prefix='/order')
+
+
 @mod_order.route('/order', methods=['POST'])
 def make_order():
     data = json.loads(request.data)
@@ -34,34 +36,55 @@ def make_order():
         'dish_id': dish_id,
         'type_id': type_id,
         'user_id': user_id,
-        'date': date,
+        'date': model.date,
         'quantity': quantity
     })
 
-@mod_order.route('/order/remove_order', method=['POST'])
-def remove_order(order_id, type1_id, cafe1_id, dish1_id):
-    query = Order.query.filter_by(id=order_id, type_id=type1_id, cafe_id=cafe1_id, dish_id=dish1_id).first()
-    db.session.delete(query)
-    db.session.commit()
-    quantity = Order.query.count()
-    data = [{
-        'id': order1_id,
-        'cafe_id': cafe_id,
-        'dish_id': dish_id,
-        'type_id': type_id,
-        'user_id': user_id,
-        'date': date
-    } for order1 in Order.query.all()]
-    return jsonify(data), quantity
 
-@mod_order.route('/order/<int:order_id>/<int:type_id>', method=['POST'])
-def check_order(order_id, type1_id):
-    query = Order.query.filter_by(id=order_id, type_id=type1_id).first()
-    if query:
-        return jsonify({
-            'success': False
-        })
+@mod_order.route('/order/remove_order', methods=['POST'])
+def remove_order():
+    data = json.loads(request.data)
+    orders = data['orders']
+    order = data['order']
+
+    found_order = None
+    for item in orders:
+        if (item['id'] == order['id'] and
+                item['typeId'] == order['typeId'] and
+                item['institutionID'] == order['institutionID'] and
+                item['typeOfInstitution'] == order['typeOfInstitution']):
+            found_order = item
+            break
+
+    if found_order:
+        if order['quantity'] == 1:
+            orders.remove(found_order)
+        else:
+            found_order['quantity'] -= 1
+        return jsonify({'orders': orders})
     else:
-        return jsonify({
-            'success': True
-        })
+        return jsonify({'message': 'Order not found'})
+
+
+@mod_order.route('/order/add_order', methods=['POST'])
+def add_order():
+    data = json.loads(request.data)
+    print(data)
+    orders = data['orders']
+    order = data['order']
+
+    found_order = None
+    for item in orders:
+        if (item['id'] == order['id'] and
+                item['typeId'] == order['typeId'] and
+                item['institutionID'] == order['institutionID'] and
+                item['typeOfInstitution'] == order['typeOfInstitution']):
+            found_order = item
+            break
+
+    if found_order:
+        found_order['quantity'] += 1
+    else:
+        orders.append(order)
+
+    return jsonify({'orders': orders})

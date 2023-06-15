@@ -7,22 +7,19 @@ from app import db
 
 mod_dish = Blueprint('dish', __name__, url_prefix='/dish')
 @mod_dish.route('/dish', methods=['POST'])
-def create_dish():
+def create_cafe():
     data = json.loads(request.data)
 
     name = data.get('name')
     picture = data.get('picture')
     price = data.get('price')
     cafe_id = data.get('cafe_id')
-    type_id = data.get('types_id')
 
     model = Dish()
     model.price = price
     model.name = name
     model.picture = picture
     model.cafe_id = cafe_id
-    model.type_id = type_id
-    model.is_chosen = False
 
     db.session.add(model)
     db.session.commit()
@@ -33,27 +30,5 @@ def create_dish():
         'picture': picture,
         'name': name,
         'price': price,
-        'cafe_id': cafe_id,
-        'type_id': type_id,
-        'is_chosen': is_chosen
+        'cafe_id': cafe_id
     })
-
-@mod_dish.route('dish/choose_dish', method=['POST'])
-def choose_dish():
-    all_dishes = json.loads(request.data)
-    my_dishes = all_dishes['objects']
-    chosen_dishes = []
-    for dish in my_dishes:
-        query = Dish.query.filter(Dish.name == dish['name'], Dish.id == dish['id'], Dish.type_id == dish['type_id']).first()
-        if query:
-            chosen_dishes.append(dish)
-    data = [{
-        'id': dish.id,
-        'name': dish.name,
-        'price': dish.price,
-        'picture': dish.picture,
-        'cafe_id': cafe_id,
-        'type_id': type_id,
-        'is_chosen': True
-    } for dish in matching_dishes]
-    return jsonify(data)

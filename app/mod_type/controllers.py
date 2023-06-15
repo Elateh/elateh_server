@@ -2,11 +2,12 @@ import json
 from flask import Blueprint, jsonify, request
 
 from app import db
+from app.mod_cafe.controllers import mod_cafe
 from app.utils import object_as_dict
 from app.mod_type.models import TypeOfDish
 from app.mod_dish.models import Dish
 
-mod_cafe = Blueprint('type', __name__, url_prefix='/type')
+mod_type = Blueprint('type', __name__, url_prefix='/type')
 
 @mod_cafe.route('/type_', methods=['GET'])
 def get_types():

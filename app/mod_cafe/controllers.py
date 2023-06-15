@@ -5,7 +5,6 @@ from app import db
 from app.utils import object_as_dict
 from app.mod_cafe.models import Cafe
 from app.mod_dish.models import Dish
-from add.mod_type.models import TypesOfDish
 
 mod_cafe = Blueprint('cafe', __name__, url_prefix='/cafe')
 
@@ -47,31 +46,6 @@ def get_cafe(cafe_id):
 @mod_cafe.route('/cafe/<int:cafe_id>/dishes', methods=['GET'])
 def get_cafe_dishes(cafe_id):
     query = Dish.query.filter_by(cafe_id=cafe_id).all()
-
-    data = [{
-        'id': dish.id,
-        'name': dish.name,
-        'price': dish.price,
-        'picture': dish.picture,
-        'type_id': dish.type_id,
-        'cafe_id': dish.cafe_id,
-        'type_of_institution': "cafe"
-    } for dish in query]
-    return jsonify(data)
-
-@mod_cafe.route('/cafe/<int:cafe_id>/types', methods=['GET'])
-def get_cafe_types(cafe_id):
-    query = TypesOfDish.filter_by(cafe_id=cafe_id).all()
-
-    data = [{
-        'id': type_.id,
-        'name': type_.name
-    } for type_ in query]
-    return jsonify(data)
-
-@mod_cafe.route('/cafe/<int:cafe_id>/<int:type_id>dishes', methods=['GET'])
-def get_cafe_dishes(cafe_id, type_id):
-    query = Dish.query.filter_by(cafe_id=cafe_id, type_id=type_id).all()
 
     data = [{
         'id': dish.id,

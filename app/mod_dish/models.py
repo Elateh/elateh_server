@@ -7,6 +7,4 @@ class Dish(db.Model):
     name = db.Column(db.Text, unique=False, nullable=False)
     price = db.Column(db.Integer, nullable=False)
     picture = db.Column(db.Text, unique=False, nullable=False)
-    is_chosen = db.Column(db.Boolean, default='False')
     cafe_id = db.Column(db.Integer, ForeignKey('cafes.id'))
-    type_id = db.Column(db.Integer, ForeignKey('types.id'))
