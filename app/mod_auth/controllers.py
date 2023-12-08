@@ -7,6 +7,7 @@ from app.mod_auth.models import Users
 
 mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
+
 @mod_auth.route('/auth/sign-up', methods=['POST'])
 def add_user():
     data = json.loads(request.data)
@@ -24,6 +25,7 @@ def add_user():
         'success': True,
         'message': 'You have been registered successfully'
     })
+
 
 @mod_auth.route('/auth/login', methods=['POST'])
 def log_in():
