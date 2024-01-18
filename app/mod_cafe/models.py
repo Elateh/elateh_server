@@ -5,3 +5,5 @@ class Cafe(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, unique=False, nullable=False)
     picture = db.Column(db.Text, unique=False, nullable=True)
+
+
